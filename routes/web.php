@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\adminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Project Features:
+// :-Admin can add MCQ for any topics
+// :-User can create account
+// :-User Attempt quiz
+// :-And attempt quiz will be stores
+// :-So user can any previous attempted quiz
+// :- User can share score with social media sites 
+// :-Admin can check u7ser details 
+
+//DATABASE STRUCTURE
+//:-MYSQL
+// :-Admin table :multiple admin with access
+// :-category :queries categories [topins like java [category its programming]]
+// :-Topic:like java ,php,css etc.
+// :-quiz 
+// :-User :total attended users
+// :-Result
+
+
+//quiz system
+Route::view('admin-login','admin-login');
+//admin login 
+Route::post('admin-login',[adminController::class,'adminlogin']);
+Route::get('dashboard',[adminController::class,'dashboard']);
