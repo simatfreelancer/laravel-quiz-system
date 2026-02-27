@@ -50,3 +50,5 @@ Route::post('add-category',[adminController::class,'addCategory']);
 Route::get('category/delete/{id}',[adminController::class,'deleteCategory']);
 //add quiz
 Route::get('add-quiz',[adminController::class,'addQuiz']);
+//add mcqs
+Route::post('add-mcq',[adminController::class,'addMCQs']);

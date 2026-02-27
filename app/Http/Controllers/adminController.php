@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\adminModel;
 use App\Models\CategoryModel;
 use App\Models\QuizModel;
+use App\Models\McqModel;
 
 
 class adminController extends Controller
@@ -111,6 +112,31 @@ class adminController extends Controller
         }else{
             return redirect('admin-login');
         }
+    }
+
+    //add mcqs 
+    function addMCQs(Request $req){
+       $mcq = new McqModel();
+       $quiz = Sessiona::get('quizDetails');
+       $admin = Session::get('admin');
+       $mcq->question= $req->question;
+       $mcq->a=$req->a;
+       $mcq->b = $req->b;
+       $mcq->c = $req->c;
+       $mcq->d = $req->d;
+       $mcq->correct_ans = $req->correct_ans;
+       $mcq->admin_id = $admin->id;
+       $mcq->quiz_id = $quiz->id;
+       $mcq->category_id = $quiz->category_id;
+       if($mcq->save()){
+        if($req->submit=="add-more"){
+            return redirect(url()->previous());
+        }else{
+            Session::forget('quizDetails');
+            return redirect('/admin-categories');
+        }
+       }
+
     }
 }
  
