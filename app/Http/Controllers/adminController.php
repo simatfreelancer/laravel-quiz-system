@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\adminModel;
+use App\Models\CategoryModel;
+use App\Models\QuizModel;
 
 
 class adminController extends Controller
@@ -45,4 +47,70 @@ class adminController extends Controller
         }
 
     }
+    function categories(){
+        $admin = Session::get("admin");
+        $categories = CategoryModel::get();
+
+        if($admin){
+            return view('categories',['name'=>$admin->name,"categories"=>$categories]);
+        }else{
+            return redirect('admin-login');
+        }
+    }
+
+    function logout(){
+        Session::forget("admin");
+        return redirect('admin-login');
+    }
+
+    //add category
+    function addCategory(Request $req){
+     //add validation duplecate entry [unique:categories,name = unique entry name fields pr categories table pr ]
+        $validation = $req->validate([
+        "category"=>"required | min:3 | unique:categories,name"
+        ]);    
+    $admin = Session::get('admin');
+    $category = new CategoryModel();
+    $category->name = $req->category;
+    $category->creator=$admin->name;
+    if($category->save()){
+       Session::flash('category','Success: Category '.$req->category ."  Added Successfully ."); 
+    }
+    return redirect('admin-categories');
+    }
+
+    //delete category
+    function deleteCategory($id){
+    // echo $id;
+    $isdeleted = CategoryModel::find($id)->delete();
+    if($isdeleted){
+        Session::flash('category',"Success:Category deleted successfully !");
+
+    }
+     return redirect('admin-categories');
+    }
+
+    //add quiz function
+    function addQuiz(){
+        $admin = Session::get("admin");
+        $categories = CategoryModel::get();
+        //get request parameter
+        $quizName = request('quiz');
+        $category_id = request('category_id');
+        if($quizName && $category_id && !Session::has('quizDetails')){
+            $quiz = new QuizModel();
+            $quiz->name = $quizName;
+            $quiz->category_id = $category_id;
+            if($quiz->save()){
+                Session::put('quizDetails',$quiz);
+            }
+        }
+
+        if($admin){
+            return view('add-quiz',['name'=>$admin->name,"categories"=>$categories]);
+        }else{
+            return redirect('admin-login');
+        }
+    }
 }
+ 

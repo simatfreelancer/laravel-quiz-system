@@ -42,3 +42,11 @@ Route::view('admin-login','admin-login');
 //admin login 
 Route::post('admin-login',[adminController::class,'adminlogin']);
 Route::get('dashboard',[adminController::class,'dashboard']);
+Route::get('admin-categories',[adminController::class,'categories']);
+Route::get('admin-logout',[adminController::class,'logout']);
+//add category
+Route::post('add-category',[adminController::class,'addCategory']);
+//delete category
+Route::get('category/delete/{id}',[adminController::class,'deleteCategory']);
+//add quiz
+Route::get('add-quiz',[adminController::class,'addQuiz']);
