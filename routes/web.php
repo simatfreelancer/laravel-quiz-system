@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,9 @@ use App\Http\Controllers\adminController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Project Features:
 // :-Admin can add MCQ for any topics
@@ -52,3 +53,18 @@ Route::get('category/delete/{id}',[adminController::class,'deleteCategory']);
 Route::get('add-quiz',[adminController::class,'addQuiz']);
 //add mcqs
 Route::post('add-mcq',[adminController::class,'addMCQs']);
+//end quiz
+Route::get('end-quiz',[adminController::class,'endQuiz']);
+//show quiz
+Route::get('show-quiz/{id}/{quizName}',[adminController::class,'showQuiz']);
+//view quiz list
+Route::get('quiz-list/{id}/{category}',[adminController::class,'quizList']);
+
+
+
+//Functionality For users
+Route::get('/',[UserController::class,'welcome']);
+//view category question list
+Route::get('user-quiz-list/{id}/{category}',[UserController::class,'userQuizList']);
+//start[attempt quiz]
+Route::get('start-quiz/{id}/{name}',[UserController::class,'startQuiz']);

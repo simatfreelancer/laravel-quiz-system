@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Categories</title>
+    @vite('resources/css/app.css')
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+<x-navbar :name="$name"></x-navbar>
+
+<div class="max-w-6xl mx-auto px-6 pt-24 pb-12">
+
+    <!-- Card Container -->
+    <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mt-10">
+
+        <!-- Header -->
+        <div class="px-8 py-6 bg-gradient-to-r from-indigo-600 to-blue-600">
+            <h2 class="text-2xl font-bold  tracking-wide">
+                Category Name: <span class="font-medium">{{ $category }}</span>
+            </h2>
+        </div>
+
+        <!-- Table Section -->
+        <div class="p-8">
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-separate border-spacing-y-2">
+
+                    <!-- Table Head -->
+                    <thead>
+                        <tr class="text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3">Quiz ID</th>
+                            <th class="px-6 py-3">Name</th>
+                            <th class="px-6 py-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Body -->
+                    <tbody>
+                        @foreach ($quizData as $data)
+                        <tr class="bg-gray-50 hover:bg-gray-100 transition duration-200 rounded-lg shadow-sm">
+                            
+                            <td class="px-6 py-4 text-gray-700 font-medium rounded-l-lg">
+                                {{ $data->id }}
+                            </td>
+
+                            <td class="px-6 py-4 text-gray-800">
+                                {{ $data->name }}
+                            </td>
+                            <td class="px-6 py-3 text-center">
+                        <a href="/show-quiz/{{$data->id}}/{{$data->name}}">
+                        <button 
+                            class="bg-blue-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg text-sm transition">
+                            View
+                        </button>
+                        </a>
+                    </td>
+
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

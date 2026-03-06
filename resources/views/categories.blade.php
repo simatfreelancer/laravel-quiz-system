@@ -63,6 +63,13 @@
                             Delete
                         </button>
                         </a>
+                         <a href="quiz-list/{{$category->id}}/{{ $category->name }}">
+                        <button 
+                            class="bg-green-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg text-sm transition">
+                            View
+                        </button>
+                        
+                        </a>
                     </td>
                 </tr>
                 @endforeach
