@@ -68,3 +68,6 @@ Route::get('/',[UserController::class,'welcome']);
 Route::get('user-quiz-list/{id}/{category}',[UserController::class,'userQuizList']);
 //start[attempt quiz]
 Route::get('start-quiz/{id}/{name}',[UserController::class,'startQuiz']);
+//User Signup
+Route::view('user-signup','user-signup');
+Route::post('user-signup',[UserController::class,'userSignup']);

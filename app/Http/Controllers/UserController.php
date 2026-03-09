@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
 use App\Models\QuizModel;
 use App\Models\McqModel;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -30,6 +33,24 @@ class UserController extends Controller
     $quizName = $name;
     return view('start-quiz',['quizName'=>$quizName,'quizCount'=>$quizCount]);
 
+    }
+
+    //signup
+    function userSignup(Request $req){
+       $validate=$req->validate([
+        'name'=>'required | min:3',
+        'email'=>'required |email | unique:users',
+        'password'=>'required | min:3 |confirmed',
+       ]);
+       $user = User::create([
+       'name'=>$req->name,
+       'email'=>$req->email,
+       'password'=>Hash::make($req->password),
+       ]);
+       if($user){
+        Session::put('user',$user);
+        return redirect('/');
+       }
     }
 
 }

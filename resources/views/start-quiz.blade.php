@@ -65,7 +65,7 @@
 
             <!-- Start Quiz Button -->
 
-            <a href="/login"
+            <a href="/user-signup"
                class="inline-block bg-indigo-600 hover:bg-indigo-700 text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-md transition duration-300">
 
                Login / Signup to Start Quiz
