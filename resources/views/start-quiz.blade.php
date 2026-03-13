@@ -64,12 +64,24 @@
 
 
             <!-- Start Quiz Button -->
+           @if (session('user'))
+            <a href="/mcq/{{session('firstMCQ')->id}}/{{$quizName}}"
+               class="inline-block text-white bg-indigo-600 hover:bg-indigo-700  font-semibold px-8 py-3 rounded-lg shadow-md transition duration-300">
 
-            <a href="/user-signup"
-               class="inline-block bg-indigo-600 hover:bg-indigo-700 text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-md transition duration-300">
-
-               Login / Signup to Start Quiz
+               Start Quiz
             </a>
+               @else
+            <a href="/user-signup-quiz"
+               class="inline-block text-white bg-indigo-600 hover:bg-indigo-700 font-semibold px-8 py-3 rounded-lg shadow-md transition duration-300">
+
+               Signup to Start Quiz
+            </a>
+            <a href="/user-login-quiz"
+               class="inline-block text-white bg-indigo-600 hover:bg-indigo-700 font-semibold px-8 py-3 rounded-lg shadow-md transition duration-300">
+
+               Login to Start Quiz
+            </a>
+             @endif
 
         </div>
 
