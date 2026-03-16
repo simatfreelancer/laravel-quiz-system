@@ -194,4 +194,10 @@ function userDetails(){
     $quizRecord = Record::WithQuiz()->where('user_id',Session::get('user')->id)->get();
     return view('user-details',['quizRecord'=>$quizRecord ]);
 }
+
+//search quiz
+function searchQuiz(Request $req){
+$quizResult = QuizModel::withCount('Mcq')->where('name','Like','%' .$req->search.'%')->get();    
+return view('quiz-search',['quizResult'=>$quizResult,'quiz'=>$req->search]);
+}
 }

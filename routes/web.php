@@ -42,13 +42,13 @@ use App\Http\Controllers\UserController;
 Route::view('admin-login','admin-login');
 //admin login 
 Route::post('admin-login',[adminController::class,'adminlogin']);
-Route::get('dashboard',[adminController::class,'dashboard']);
-Route::get('admin-categories',[adminController::class,'categories']);
-Route::get('admin-logout',[adminController::class,'logout']);
-//add category
-Route::post('add-category',[adminController::class,'addCategory']);
-//delete category
-Route::get('category/delete/{id}',[adminController::class,'deleteCategory']);
+// Route::get('dashboard',[adminController::class,'dashboard']);
+// Route::get('admin-categories',[adminController::class,'categories']);
+// Route::get('admin-logout',[adminController::class,'logout']);
+// //add category
+// Route::post('add-category',[adminController::class,'addCategory']);
+// //delete category
+// Route::get('category/delete/{id}',[adminController::class,'deleteCategory']);
 //add quiz
 Route::get('add-quiz',[adminController::class,'addQuiz']);
 //add mcqs
@@ -59,6 +59,17 @@ Route::get('end-quiz',[adminController::class,'endQuiz']);
 Route::get('show-quiz/{id}/{quizName}',[adminController::class,'showQuiz']);
 //view quiz list
 Route::get('quiz-list/{id}/{category}',[adminController::class,'quizList']);
+
+//middleware for admin 
+Route::middleware('checkadmin')->group(function(){
+Route::get('dashboard',[adminController::class,'dashboard']);
+Route::get('admin-categories',[adminController::class,'categories']);
+Route::get('admin-logout',[adminController::class,'logout']);
+//add category
+Route::post('add-category',[adminController::class,'addCategory']);
+//delete category
+Route::get('category/delete/{id}',[adminController::class,'deleteCategory']);
+}); 
 
 
 
@@ -78,9 +89,26 @@ Route::get('user-signup-quiz',[UserController::class,'userSignupQuiz']);
 Route::view('user-login','user-login');
 Route::post('user-login',[UserController::class,'userLogin']);
 Route::get('user-login-quiz',[UserController::class,'userLoginQuiz']);
-//start mcqs
-Route::get('mcq/{id}/{name}',[UserController::class,'mcq']);
-//submit mcq next
-Route::post('submit-next/{id}',[UserController::class,'submitAndNext']);
-//user details
-Route::get('user-details',[UserController::class,'userDetails']);
+// //start mcqs
+// Route::get('mcq/{id}/{name}',[UserController::class,'mcq']);
+// //submit mcq next
+// Route::post('submit-next/{id}',[UserController::class,'submitAndNext']);
+// //user details
+// Route::get('user-details',[UserController::class,'userDetails']);
+
+//middleware  for user
+Route::middleware('checkuser')->group(function(){
+
+    // start mcqs
+    Route::get('mcq/{id}/{name}',[UserController::class,'mcq']);
+
+    // submit mcq next
+    Route::post('submit-next/{id}',[UserController::class,'submitAndNext']);
+
+    // user details
+    Route::get('user-details',[UserController::class,'userDetails']);
+
+});
+
+//search quiz
+Route::get('search-quiz',[UserController::class,'searchQuiz']);
